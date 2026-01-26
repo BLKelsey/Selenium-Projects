@@ -25,7 +25,10 @@ print("Link clicked.")
 
 home_btn = wait.until(
     EC.element_to_be_clickable((By.ID, "button-color")))
+time.sleep(2)  # Just to visually confirm the link is ready
 home_btn.click()
+time.sleep(2)  # Just to visually confirm the link is ready
+
 print("Navigated back to home page.")
 
 driver.quit()
