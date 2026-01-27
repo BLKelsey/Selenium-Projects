@@ -65,6 +65,29 @@ print("PASS: Second radio group - 'No' is selected.")
 time.sleep(2)
 
 # -------------------------------------------------
+# CHECKBOX — Verified checked by default
+# -------------------------------------------------
+checkbox_heading = wait.until(
+    EC.visibility_of_element_located(
+        (By.XPATH, "//p[contains(normalize-space(), 'Find if the checkbox is selected')]")
+    )
+)
+print(f"Located checkbox heading: '{checkbox_heading.text}'")
+time.sleep(1)
+
+checkbox = wait.until(
+    EC.presence_of_element_located(
+        (By.XPATH, "//button[@role='checkbox']")
+    )
+)
+
+assert checkbox.get_attribute("data-state") == "checked", (
+    "FAIL: Checkbox is NOT checked by default"
+)
+print("PASS: Checkbox is checked by default.")
+time.sleep(2)
+
+# -------------------------------------------------
 # Final cleanup
 # -------------------------------------------------
 driver.quit()
