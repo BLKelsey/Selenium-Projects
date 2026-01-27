@@ -11,8 +11,7 @@ driver.get("https://www.qaplayground.com/practice")
 
 # Navigate to "Select By"
 select_by_link = wait.until(
-    EC.element_to_be_clickable((By.XPATH, "//span[text()='Select By']"))
-)
+    EC.element_to_be_clickable((By.XPATH, "//span[text()='Select By']")))
 
 select_by_link.click()
 print("Navigated to Select By section.")
