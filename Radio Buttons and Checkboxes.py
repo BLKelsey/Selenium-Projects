@@ -8,28 +8,64 @@ driver = webdriver.Chrome()
 wait = WebDriverWait(driver, 10)
 driver.get("https://www.qaplayground.com/practice")
 
-# Click on "Toggle" section
+# -------------------------------------------------
+# Navigate to Toggle section
+# -------------------------------------------------
 toggle_link = wait.until(
     EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Toggle']"))
 )
 toggle_link.click()
 print("Navigated to Toggle section.")
+time.sleep(2)
 
-# ✅ WAIT for the heading (NO iframe)
-element = wait.until(
+# -------------------------------------------------
+# FIRST RADIO GROUP — Select YES
+# -------------------------------------------------
+heading1 = wait.until(
     EC.visibility_of_element_located(
         (By.XPATH, "//p[contains(normalize-space(), 'Select any one')]")
     )
 )
-print(f"Located heading: '{element.text}'")
+print(f"Located 1st radio heading: '{heading1.text}'")
+time.sleep(1)
 
-# Locate radio button
-yes_radio = wait.until(
+yes_radio_1 = wait.until(
     EC.element_to_be_clickable(
         (By.XPATH, "//input[@type='radio' and @name='selectOne' and @value='yes']")
     )
 )
-yes_radio.click()
-# Validation — this should FAIL the test if wrong
-assert yes_radio.is_selected(), "Yes radio button was not selected"
-print("PASS: 'Yes' radio button is selected.")
+yes_radio_1.click()
+time.sleep(1)
+
+assert yes_radio_1.is_selected(), "FAIL: First radio group 'Yes' was not selected"
+print("PASS: First radio group - 'Yes' is selected.")
+time.sleep(2)
+
+# -------------------------------------------------
+# SECOND RADIO GROUP — Select NO
+# -------------------------------------------------
+heading2 = wait.until(
+    EC.visibility_of_element_located(
+        (By.XPATH, "//p[contains(normalize-space(), 'Confirm you can select only one radio button')]")
+    )
+)
+print(f"Located 2nd radio heading: '{heading2.text}'")
+time.sleep(1)
+
+no_radio_2 = wait.until(
+    EC.element_to_be_clickable(
+        (By.XPATH, "//input[@type='radio' and @name='confirm' and @value='no']")
+    )
+)
+no_radio_2.click()
+time.sleep(1)
+
+assert no_radio_2.is_selected(), "FAIL: Second radio group 'No' was not selected"
+print("PASS: Second radio group - 'No' is selected.")
+time.sleep(2)
+
+# -------------------------------------------------
+# Final cleanup
+# -------------------------------------------------
+driver.quit()
+print("Test completed successfully.")
