@@ -8,13 +8,20 @@ driver = webdriver.Chrome()
 print("Browser started") 
 
 wait = WebDriverWait(driver, 10)
-driver.get("https://DTCC.com/")
-print("Opened DTCC homepage")
+driver.set_page_load_timeout(15)  # Sets a page load timeout of 15 seconds
+try:
+    driver.get("https://www.dtcc.com")
+    print("Opened DTCC homepage")
+except:
+    print("Page load timed out, continuing anyway")
+driver.maximize_window()                
+print("Browser window maximized")
+
 
 heading = wait.until(
     EC.visibility_of_element_located(
         (By.ID, "main_0_slidesRpt_h2Title_0")))
-print("Located homepage heading"
+print("Located homepage heading")
 heading_text = heading.text
 print("Heading text:", heading_text)
 
@@ -24,8 +31,8 @@ print("Verified homepage heading")
 # Click Products & Services
 products_services = wait.until(
     EC.element_to_be_clickable((By.LINK_TEXT, "PRODUCTS & SERVICES")))
-products_services.click()
-print("Clicked Products & Services")
+products_services.hover()
+print("Hovered over Products & Services")
 
 # Click Repository & Derivatives Services
 repo_services = wait.until(
