@@ -23,13 +23,11 @@ time.sleep(1)                                # Short pause so page fully settles
 # Selenium action: accept() or dismiss()
 
 confirm_button = WebDriverWait(driver, 10).until(      # Wait for Confirm button to exist in DOM
-    EC.presence_of_element_located((By.ID, "confirmexample"))
-)
+    EC.presence_of_element_located((By.ID, "confirmexample")))
 
 driver.execute_script(                        # Execute JavaScript in browser context
-    "arguments[0].scrollIntoView(true);",     # Scroll button into visible area
-    confirm_button                            # Pass WebElement as arguments[0]
-)
+    "arguments[0].scrollIntoView(true);",     # Selenium will inject confirm_button as arguments[0]
+    confirm_button)                           # Pass WebElement as arguments[0]
 
 time.sleep(0.5)                              # Allow layout to stabilize after scrolling
 
@@ -37,8 +35,7 @@ confirm_button.click()                       # Click "Show confirm box"
 print("Clicked Show confirm box")             # Log click action
 
 WebDriverWait(driver, 10).until(              # Wait until confirm alert appears
-    EC.alert_is_present()
-)
+    EC.alert_is_present())
 
 print("Confirm alert is present")             # Confirm alert detection
 
