@@ -22,27 +22,13 @@ try:
     )
     print("Mastering Locators button located")  
 
-    original_window = driver.current_window_handle  # Stores the current (original) browser tab
-    print("Stored original window handle")          
-
     mastering_locators.click()           # Clicks the "Mastering Locators" button
     print("Clicked Mastering Locators button")  
 
     # Give the browser a moment to open a new tab (if it will)
     time.sleep(2)                        # Small pause to allow new tab creation
 
-    all_windows = driver.window_handles            # Gets a list of all open browser tabs
-    print("Current window handles:", all_windows)  # Prints all detected window handles
-
-    if len(all_windows) > 1:               # Checks if a new tab actually opened
-        for window in all_windows:         # Loops through all window handles
-            if window != original_window:  # Finds the handle that is NOT the original tab
-                driver.switch_to.window(window)  # Switches to the new tab
-                print("Switched to new browser tab")  # Confirms tab switch
-                break                   # Stops looping once switched
-    else:
-        print("No new tab opened, staying on current tab")  # Handles same-tab navigation safely
-
+  
     wait.until(EC.title_contains("Mastering Selectors"))  # Waits until Udemy page title loads
     print("Udemy page title loaded")       # Confirms title condition met
 
@@ -59,9 +45,8 @@ except Exception as e:
     print("Failure reason:", e)            # Prints the exception message
 
     screenshot_path = os.path.expanduser( # Builds a valid absolute path for the screenshot
-        "~/Documents/Selenium-Projects/Test pics/Failures/mastering_locators_failure.png"
-    )
-
+        "~/Documents/Selenium-Projects/Test pics/Failures/mastering_locators_failure.png")
+   
     driver.get_screenshot_as_file(screenshot_path)  # Captures a screenshot of the failure state
     print("Screenshot captured at:", screenshot_path)  # Confirms screenshot location
 
