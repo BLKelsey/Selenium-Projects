@@ -4,8 +4,6 @@ from selenium.webdriver.support.ui import WebDriverWait           # Allows waiti
 from selenium.webdriver.support import expected_conditions as EC  # Common wait conditions
 import time                                                       # Used for pauses (sleep)
 
-#first test
-
 # ─────────────────────────────
 # Start browser
 # ─────────────────────────────

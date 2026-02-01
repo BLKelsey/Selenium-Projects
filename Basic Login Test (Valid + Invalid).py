@@ -9,8 +9,7 @@ import time
 # Setup
 # ─────────────────────────────
 driver = webdriver.Chrome()
-wait = WebDriverWait(driver, 10)   # This doesn’t pause anything. It just initializes the wait object so you can use it later.
-                                          # example:  wait.until(EC.visibility_of_element_located((By.ID, "login")))
+wait = WebDriverWait(driver, 10)
 
 driver.get("https://the-internet.herokuapp.com/login")
 driver.maximize_window()
@@ -22,6 +21,7 @@ driver.maximize_window()
 username_field = wait.until(
     EC.presence_of_element_located((By.ID, "username"))          # Waits until the username input exists, then stores it for interaction
 )
+
 password_field = driver.find_element(By.ID, "password")     # Locates the password input field
 
 # ─────────────────────────────
