@@ -1,3 +1,4 @@
 .vscode/
 *.code-workspace
 Test pics/Failures/mastering_locators_failure.png
+__pycache__/test_web_table_insert.cpython-314-pytest-8.3.5.pyc
