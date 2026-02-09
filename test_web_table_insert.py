@@ -11,18 +11,53 @@ def test_web_table_page_loads():
     driver.get("https://demoqa.com/webtables")
     driver.maximize_window()
 
-    heading = driver.find_element(By.TAG_NAME, "h1")              # Locate the main page heading (<h1>)
-    assert heading.text == "Web Tables", "Page title does not match expected title."
+    # -------------------------------
+    # Verify page loaded
+    # -------------------------------
+    heading = wait.until(
+        EC.visibility_of_element_located((By.TAG_NAME, "h1"))
+    )
+    assert heading.text == "Web Tables"
 
-    table = wait.until(                                           # Wait until the web table exists
-        EC.presence_of_element_located((By.CSS_SELECTOR, "div.ReactTable"))
+    # -------------------------------
+    # Open Add Record form
+    # -------------------------------
+    add_button = wait.until(
+        EC.element_to_be_clickable((By.ID, "addNewRecordButton"))
+    )
+    add_button.click()
+
+    # -------------------------------
+    # Fill form fields
+    # -------------------------------
+    wait.until(EC.visibility_of_element_located((By.ID, "firstName"))).send_keys("Brian")
+    driver.find_element(By.ID, "lastName").send_keys("Kelsey")
+    driver.find_element(By.ID, "age").send_keys("56")
+    driver.find_element(By.ID, "userEmail").send_keys("brian@example.com")
+    driver.find_element(By.ID, "salary").send_keys("86500")
+    driver.find_element(By.ID, "department").send_keys("Quality Assurance")
+
+    # -------------------------------
+    # Submit form
+    # -------------------------------
+    driver.find_element(By.ID, "submit").click()
+
+    # -------------------------------
+    # WAIT for React table to update
+    # -------------------------------
+    wait.until(
+        EC.text_to_be_present_in_element(
+            (By.CSS_SELECTOR, "div.ReactTable"),
+            "Brian"
+        )
     )
 
-    add_button = driver.find_element(By.ID, "addNewRecordButton") # Locate the "Add" button
-    add_button.click()                                            # Simulate user clicking Add
+    # -------------------------------
+    # Assertion
+    # -------------------------------
+    cells = driver.find_elements(By.CSS_SELECTOR, "div.rt-td")
 
-    cells = table.find_elements(By.CSS_SELECTOR, "div.rt-td")     # Collect all visible table cells
-    assert len(cells) > 0                                         # Ensure table is not empty
+    assert any("Brian" in cell.text for cell in cells), \
+        "Row was not submitted to the table"
 
-    driver.quit()                                                  # Close browser after test
-    print("Web Table page loaded and table is present.")
+    driver.quit()
