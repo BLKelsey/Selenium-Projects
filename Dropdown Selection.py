@@ -26,24 +26,19 @@ print(f"Initial dropdown text: '{dropdown.text}'")
 assert dropdown.text.strip() == "Select Fruit"
 
 # Open dropdown
-time.sleep(1)
 dropdown.click()
 
 # Select Banana
 banana_option = wait.until(
     EC.element_to_be_clickable(
-        (By.XPATH, "//*[@role='option' and normalize-space()='Banana']")
-    )
-)
+        (By.XPATH, "//*[@role='option' and normalize-space()='Banana']")))
 banana_option.click()
 
 # ✅ Verify selection via visible text (correct for this UI)
 wait.until(
     EC.text_to_be_present_in_element(
         (By.XPATH, "//button[@role='combobox']"),
-        "Banana"
-    )
-)
+        "Banana"))
 
 assert dropdown.text.strip() == "Banana"
 
