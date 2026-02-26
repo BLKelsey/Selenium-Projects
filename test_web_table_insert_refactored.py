@@ -10,7 +10,9 @@ from selenium.webdriver.support import expected_conditions as EC
 
 def fill_field(driver, field_id, value):
     """Fill a form input by ID."""
-    driver.find_element(By.ID, field_id).send_keys(value)
+    field = driver.find_element(By.ID, field_id)
+    field.clear()
+    field.send_keys(value)
 
 
 def get_row_count(driver):
@@ -49,6 +51,9 @@ def test_web_table_insert():
         # -------------------------------
         driver.find_element(By.ID, "addNewRecordButton").click()
 
+        # Wait for modal form to appear
+        wait.until(EC.visibility_of_element_located((By.ID, "firstName")))
+
         # -------------------------------
         # Act: Fill form
         # -------------------------------
@@ -67,13 +72,30 @@ def test_web_table_insert():
         driver.find_element(By.ID, "submit").click()
 
         # -------------------------------
-        # Assert: Row count increased
+        # Wait for modal to close
         # -------------------------------
         wait.until(
-    lambda d: any("Brian" in cell.text for cell in d.find_elements(By.CSS_SELECTOR, "div.rt-td")))
+            EC.invisibility_of_element_located((By.CLASS_NAME, "modal-content"))
+        )
 
+        # -------------------------------
+        # Assert: Row count increased
+        # -------------------------------
+        wait.until(lambda d: get_row_count(d) > before_count)
+
+        after_count = get_row_count(driver)
+        print(f"Rows after insert: {after_count}")
+
+        assert after_count == before_count + 1, \
+            f"Expected {before_count + 1} rows, got {after_count}"
+
+        # -------------------------------
+        # Assert: Inserted data present
+        # -------------------------------
         cells = driver.find_elements(By.CSS_SELECTOR, "div.rt-td")
-        assert any("Brian" in cell.text for cell in cells), "Inserted row not found in table"
+        cell_texts = [cell.text for cell in cells]
+
+        assert "Brian" in cell_texts, "Inserted row not found in table"
 
     finally:
         driver.quit()
