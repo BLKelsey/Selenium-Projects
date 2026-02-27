@@ -14,12 +14,11 @@ driver.maximize_window()
 print("Browser window maximized")
 
 page_title = wait.until(
-        EC.presence_of_element_located((By.TAG_NAME, "h1")))
+        EC.visibility_of_element_located((By.TAG_NAME, "h1")))
 
 print("Located main heading element")
 
-assert page_title.is_displayed(), "Main heading is not displayed on the page"
-print("Verified main heading is displayed")
+assert page_title is not None
 
 heading_text = page_title.text
 print("Main heading text:", heading_text)
