@@ -14,7 +14,7 @@ def test_fill_in_text_boxes():
     # Enter text into Full Name field
     # -------------------------------------------------
     full_name_field = wait.until(
-        EC.visibility_of_element_located((By.ID, "userName"))
+        EC.visibility_of_element_located((By.ID, "customerFullName"))
     )
     full_name_field.send_keys("Brian Kelsey")
     print("Entered Full Name.")    
