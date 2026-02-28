@@ -1,7 +1,0 @@
-.vscode/
-*.code-workspace
-Test pics/Failures/mastering_locators_failure.png
-__pycache__/test_web_table_insert.cpython-314-pytest-8.3.5.pyc
-__pycache__/test_web_table_insert_refactored.cpython-314-pytest-8.3.5.pyc
-__pycache__/test_fill_in_text_boxes.cpython-314-pytest-8.3.5.pyc
-__pycache__/test_Empty_Field_Validation.cpython-314-pytest-8.3.5.pyc
