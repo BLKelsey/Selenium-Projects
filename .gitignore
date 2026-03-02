@@ -2,11 +2,5 @@ Notes/Selenium skill roadmap.odt
 __pycache__/conftest.cpython-314-pytest-8.3.5.pyc
 .vscode
 tests/__pycache__/test_bearer_token.cpython-314-pytest-8.3.5.pyc
-
-
-
-
-
-
-.
-
+__pycache__/conftest.cpython-314-pytest-9.0.2.pyc
+tests/__pycache__/test_valid_invalid_login.cpython-314-pytest-9.0.2.pyc
