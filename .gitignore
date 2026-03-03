@@ -6,3 +6,4 @@ __pycache__/conftest.cpython-314-pytest-9.0.2.pyc
 tests/__pycache__/test_valid_invalid_login.cpython-314-pytest-9.0.2.pyc
 Notes/.~lock.Selenium skill roadmap.odt#
 Notes/Right - Wrong XPATHs.odt
+tests/test_valid_invalid_login.py
