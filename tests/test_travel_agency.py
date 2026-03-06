@@ -24,7 +24,7 @@ def test_travel_agency_booking():
         wait.until(
             EC.element_to_be_clickable((By.XPATH, "//input[@value='Find Flights']"))).click()
 
-        # Choose Lufthansa flight
+        # Choose Lufthansa flight out of flight options
         wait.until(
             EC.element_to_be_clickable(
                 (By.XPATH, "//tr[td[normalize-space()='Lufthansa']]//input[@value='Choose This Flight']"))).click()
@@ -81,4 +81,4 @@ def test_travel_agency_booking():
         print(json.dumps(data, indent=4))
 
     finally:
-        driver.quit()
+      driver.quit()
