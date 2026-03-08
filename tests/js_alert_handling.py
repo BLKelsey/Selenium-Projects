@@ -1,48 +1,38 @@
-import time                                  # Used to add visible pauses during execution
-from selenium import webdriver               # Core Selenium WebDriver
-from selenium.webdriver.common.by import By  # Locator strategies (ID, NAME, XPATH, etc.)
-from selenium.webdriver.support.ui import WebDriverWait  # Explicit waits
-from selenium.webdriver.support import expected_conditions as EC  # Wait conditions
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
-# =========================
-# SETUP: Browser & Page
-# =========================
+def test_js_confirm_alert():
 
-driver = webdriver.Chrome()                  # Launch Chrome browser
-driver.get("https://testpages.herokuapp.com/pages/basics/alerts-javascript/")  # Open test page
-print("Page loaded")                         # Confirm page navigation
+    driver = webdriver.Chrome()
+    wait = WebDriverWait(driver, 10)
 
-# =========================
-# JS CONFIRM ALERT
-# =========================
-# Behavior: Shows OK / Cancel dialog
-# Selenium action: accept() or dismiss()
+    driver.get("https://testpages.herokuapp.com/pages/basics/alerts-javascript/")
+    print("Page loaded")
 
-confirm_button = WebDriverWait(driver, 10).until(      # Wait for Confirm button to exist in DOM
-    EC.presence_of_element_located((By.ID, "confirmexample")))
+    # Locate confirm button
+    confirm_button = wait.until(
+        EC.presence_of_element_located((By.ID, "confirmexample"))
+    )
 
-driver.execute_script(                        # Execute JavaScript in browser context
-    "arguments[0].scrollIntoView(true);",     # Selenium will inject confirm_button as arguments[0]
-    confirm_button)                           # Pass WebElement as arguments[0]
+    driver.execute_script(
+        "arguments[0].scrollIntoView(true);",
+        confirm_button
+    )
 
-confirm_button.click()                       # Click "Show confirm box"
-print("Clicked Show confirm box")             # Log click action
+    confirm_button.click()
+    print("Clicked Show confirm box")
 
-WebDriverWait(driver, 10).until(              # Wait until confirm alert appears
-    EC.alert_is_present())
+    wait.until(EC.alert_is_present())
+    print("Confirm alert is present")
 
-print("Confirm alert is present")             # Confirm alert detection
+    alert = driver.switch_to.alert
 
-alert = driver.switch_to.alert                # Switch Selenium focus to alert
-print("Alert text:", alert.text)              # Output alert message
+    assert alert.text == "I am a confirm alert", "Unexpected alert text"
 
-alert.accept()                                # Click OK on confirm alert
-print("Confirm alert accepted")               # Log acceptance
+    alert.accept()
+    print("Confirm alert accepted")
 
-
-# =========================
-# CLEANUP
-# =========================
-
-driver.quit()                                 # Close browser and end session
+    driver.quit()
