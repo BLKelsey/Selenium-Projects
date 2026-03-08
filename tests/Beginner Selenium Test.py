@@ -2,7 +2,7 @@ from selenium import webdriver                                    # Main Seleniu
 from selenium.webdriver.common.by import By                       # Used to locate elements (id, text, xpath, etc.)
 from selenium.webdriver.support.ui import WebDriverWait           # Allows waiting for conditions
 from selenium.webdriver.support import expected_conditions as EC  # Common wait conditions
-import time                                                       # Used for pauses (sleep)
+
 
 # ─────────────────────────────
 # Start browser
@@ -48,7 +48,7 @@ print("Starting slow scroll...")
 
 for i in range(8):
     driver.execute_script("window.scrollBy(0, 90);")
-    time.sleep(1)
+
 
 print("Scrolling finished")
 
